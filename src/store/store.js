@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 const state = {
     categories: [],
-    items: []
+    items: [],
+    cart: []
 };
 
 const mutations = {
@@ -40,6 +41,18 @@ const mutations = {
 
     DELETE_ITEM (state, item) {
         state.items.splice(state.items[state.items.indexOf(item)], 1)
+    },
+
+    ADD_ITEM_TO_CART (state, item, count) {
+        const orderItem = {
+            item: item,
+            count: count
+        }
+        state.cart.push(orderItem)
+    },
+
+    REMOVE_ITEM_FROM_CART (state, cartItem) {
+        state.cart.splice(state.cart.indexOf(cartItem), 1)
     },
 };
 
