@@ -3,8 +3,9 @@ import Router from 'vue-router'
 
 import Home from '../components/pages/Home.vue'
 import Categories from '../components/pages/Categories.vue'
+import Items from '../components/pages/Items.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     routes: [
@@ -17,6 +18,11 @@ export default new Router({
             path: '/categories',
             name: 'Categories',
             component: Categories
+        },
+        {
+            path: '/items',
+            name: 'Items',
+            component: Items
         }
     ]
 })
