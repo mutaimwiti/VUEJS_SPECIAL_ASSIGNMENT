@@ -1,6 +1,9 @@
 <template>
     <div>
-        VUEJS Special Assignment
+        Store Manager
+        <hr>
+        Manage your store
+        <br>
     </div>
 </template>
 
