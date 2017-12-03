@@ -25,7 +25,7 @@
 
 
     export default {
-        name: 'Home',
+        name: 'Categories',
 
         computed: {
             ...mapState(['categories']),
