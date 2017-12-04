@@ -1,9 +1,7 @@
 <template>
-    <div>
-        Store Manager
-        <hr>
-        Manage your store
-        <br>
+    <div class="grid-container">
+        <h2>Store manager</h2>
+        <p>Manage your stores like a pro</p>
     </div>
 </template>
 

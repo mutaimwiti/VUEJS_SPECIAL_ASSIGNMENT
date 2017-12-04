@@ -1,22 +1,19 @@
 <template>
-    <div>
-        <h3>Categories</h3>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="category in categories">
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.description }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="grid-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="category in categories">
+                <td>{{ category.name }}</td>
+                <td>{{ category.description }}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 

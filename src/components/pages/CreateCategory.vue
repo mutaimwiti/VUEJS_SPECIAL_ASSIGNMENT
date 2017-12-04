@@ -1,18 +1,15 @@
 <template>
-    <div>
-        <h3>Create category</h3>
-        <div>
-            <form>
-                <label for="name">Name</label>
-                <input id="name" type="text" v-model="catName" @keydown="toggleNameWarnings"><br>
-                <label v-show="itemExists">The category already exists!</label><br>
-                <label v-show="nameEmpty">The name cannot be empty!</label><br>
-                <label for="description">Description</label>
-                <textarea id="description" v-model="catDescription" @keydown="toggleDescriptionEmpty"></textarea><br>
-                <label v-show="descriptionEmpty">The description cannot be empty!</label><br>
-                <input type="button" @click="add" value="Add category">
-            </form>
-        </div>
+    <div class="grid-container">
+        <form>
+            <label for="name">Name</label>
+            <input id="name" type="text" v-model="catName" @keydown="toggleNameWarnings">
+            <label v-show="itemExists">The category already exists!</label>
+            <label v-show="nameEmpty">The name cannot be empty!</label>
+            <label for="description">Description</label>
+            <textarea id="description" v-model="catDescription" @keydown="toggleDescriptionEmpty"></textarea>
+            <label v-show="descriptionEmpty">The description cannot be empty!</label><br>
+            <input type="button" @click="add" value="Add category" class="button">
+        </form>
     </div>
 </template>
 
