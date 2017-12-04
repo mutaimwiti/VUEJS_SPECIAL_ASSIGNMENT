@@ -4,7 +4,8 @@
         <div>
             <form>
                 <label for="name">Name</label>
-                <input id="name" type="text" v-model="catName" @keydown="toggleNameEmpty"><br>
+                <input id="name" type="text" v-model="catName" @keydown="toggleNameWarnings"><br>
+                <label v-show="itemExists">The category already exists!</label><br>
                 <label v-show="nameEmpty">The name cannot be empty!</label><br>
                 <label for="description">Description</label>
                 <textarea id="description" v-model="catDescription" @keydown="toggleDescriptionEmpty"></textarea><br>
@@ -27,6 +28,7 @@
                 catDescription: '',
                 nameEmpty: false,
                 descriptionEmpty: false,
+                itemExists: false
             }
         },
 
@@ -39,7 +41,13 @@
                 let exists = this.categories().filter((category)=> {
                     return category.name === this.catName;
                 }).length;
-                return !( exists === 0)
+                if ( exists > 0 ){
+                    this.itemExists = true;
+                    return true;
+                }
+                else{
+                    return false;
+                }
             },
 
             anyFieldsEmpty() {
@@ -55,9 +63,12 @@
                 return anyEmpty;
             },
 
-            toggleNameEmpty(){
+            toggleNameWarnings(){
                 if (this.nameEmpty){
                     this.nameEmpty = false;
+                }
+                if (this.itemExists){
+                    this.itemExists = false;
                 }
             },
 
@@ -68,7 +79,9 @@
             },
 
             add(){
-                if (!this.exists() && !this.anyFieldsEmpty()){
+                let exists = this.exists();
+                let anyEmpty = this.anyFieldsEmpty();
+                if (!exists && !anyEmpty){
                     this.createCategory({
                         name: this.catName, description: this.catDescription
                     });
