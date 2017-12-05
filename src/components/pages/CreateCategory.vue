@@ -1,15 +1,32 @@
 <template>
-    <div class="grid-container">
-        <form>
-            <label for="name">Name</label>
-            <input id="name" type="text" v-model="catName" @keydown="toggleNameWarnings">
-            <label v-show="itemExists">The category already exists!</label>
-            <label v-show="nameEmpty">The name cannot be empty!</label>
-            <label for="description">Description</label>
-            <textarea id="description" v-model="catDescription" @keydown="toggleDescriptionEmpty"></textarea>
-            <label v-show="descriptionEmpty">The description cannot be empty!</label><br>
-            <input type="button" @click="add" value="Add category" class="button">
-        </form>
+    <div>
+        <div class="grid-container">
+            <div class="callout">
+                <form>
+                    <div class="grid-container">
+                        <div class="grid-x grid-padding-x">
+                            <div class="medium-6 cell">
+                                <label>Name
+                                    <input type="text" v-model="catName" @keydown="toggleNameWarnings">
+                                </label>
+                                <small v-show="itemExists" class="alert">The category already exists!</small>
+                                <small v-show="nameEmpty" class="alert">The name cannot be empty!</small>
+                            </div>
+                        </div>
+                        <div class="grid-x grid-padding-x">
+                            <div class="medium-6 cell">
+                                <label>
+                                    Description
+                                    <textarea v-model="catDescription" @keydown="toggleDescriptionEmpty"></textarea>
+                                </label>
+                                <small v-show="descriptionEmpty" class="alert">The description cannot be empty!</small>
+                            </div>
+                        </div>
+                        <input type="button" @click="add" value="Add category" class="button">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 

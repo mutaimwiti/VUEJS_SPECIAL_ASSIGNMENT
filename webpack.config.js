@@ -56,7 +56,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
+            'zf': 'foundation-sites/js',
         },
         extensions: ['*', '.js', '.vue', '.json']
     },
