@@ -2,6 +2,7 @@
     <div class="grid-x">
         <div class="medium-offset-2 medium-8">
             <div class="callout main-callout">
+                <quick-links :components="[{'name': 'CreateCategory', 'caption': 'Add category'}]"></quick-links>
                 <table>
                     <thead>
                     <tr>
@@ -25,10 +26,15 @@
 
 <script>
     import { mapState } from 'vuex'
+    import QuickLinks from '../QuickLinks.vue';
 
 
     export default {
         name: 'Categories',
+
+        components: {
+            QuickLinks
+        },
 
         computed: {
             ...mapState(['categories']),

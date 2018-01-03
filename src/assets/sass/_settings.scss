@@ -908,3 +908,12 @@ table thead, table tfoot {
         background: #3b386b;
         color: #fefefe;
 }
+
+.quick-callout {
+        position: static !important;
+        margin: 30px !important;
+}
+
+.pull-right {
+        float: right;
+}
