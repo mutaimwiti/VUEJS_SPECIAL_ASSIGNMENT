@@ -1,23 +1,27 @@
 <template>
-    <div class="grid-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Units</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in items">
-                <td>{{ item.name }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ item.stock }}</td>
-                <td>{{ item.units }}</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="grid-x">
+        <div class="medium-offset-2 medium-8">
+            <div class="callout main-callout">
+                <table class="table hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Stock</th>
+                        <th>Units</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in items">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.stock }}</td>
+                        <td>{{ item.units }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -39,13 +43,3 @@
         }
     }
 </script>
-
-<style scoped>
-    table {
-        border-collapse: collapse;
-    }
-
-    table, th, td {
-        border: 1px solid black;
-    }
-</style>

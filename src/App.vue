@@ -1,21 +1,23 @@
 <template>
     <div id="app">
-        <div class="top-bar">
+        <div class="top-bar sticky sticky-topbar" id="app-vav" data-animate="hinge-in-from-top spin-out">
             <div class="top-bar-left">
                 <ul id="dropdown-menu" class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">Store manager</li>
+                    <li class="menu-text" id="app-name">
+                        <router-link :to="{ name: 'Home' }">Store manager</router-link>
+                    </li>
                     <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
                     <li>
                         <a>Categories</a>
                         <ul class="menu">
-                            <li><router-link :to="{ name: 'Categories' }">Categories</router-link></li>
-                            <li><router-link :to="{ name: 'CreateCategory' }">Create category</router-link></li>
+                            <li><router-link :to="{ name: 'Categories' }">All</router-link></li>
+                            <li><router-link :to="{ name: 'CreateCategory' }">Add</router-link></li>
                         </ul>
                     </li>
                     <li>
                         <a>Items</a>
                         <ul class="menu">
-                            <li><router-link :to="{ name: 'Items' }">Items</router-link></li>
+                            <li><router-link :to="{ name: 'Items' }">All</router-link></li>
                         </ul>
                     </li>
                 </ul>
@@ -27,7 +29,9 @@
                 </ul>
             </div>
         </div>
-        <router-view></router-view>
+        <div class="grid-container">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 

@@ -1,19 +1,23 @@
 <template>
-    <div class="grid-container">
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="category in categories">
-                <td>{{ category.name }}</td>
-                <td>{{ category.description }}</td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="grid-x">
+        <div class="medium-offset-2 medium-8">
+            <div class="callout main-callout">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="category in categories">
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.description }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -35,13 +39,3 @@
         }
     }
 </script>
-
-<style scoped>
-    table {
-        border-collapse: collapse;
-    }
-
-    table, th, td {
-        border: 1px solid black;
-    }
-</style>
