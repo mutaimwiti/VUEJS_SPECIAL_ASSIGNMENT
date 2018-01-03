@@ -3,7 +3,8 @@
         <div class="grid-x">
             <div class="medium-offset-3 medium-6">
                 <div class="callout main-callout">
-                    <form class="sm-form-callout">
+                    <alert message="Category created" v-on:close="success = false" v-show="success"></alert>
+                    <form>
                         <div class="grid-container">
                             <div class="grid-x grid-padding-x">
                                 <div class="grid-x grid-padding-x">
@@ -11,7 +12,7 @@
                                         <label for="name" class="text-right middle">Name</label>
                                     </div>
                                     <div class="medium-8 cell">
-                                        <input id="name" type="text" v-model="catName" @keydown="toggleNameWarnings"
+                                        <input id="name" type="text" v-model="catName" @focus="toggleNameWarnings"
                                                autofocus>
                                         <div data-abide-error class="alert callout" v-show="nameEmpty">
                                             <span>The name cannot be empty!</span>
@@ -26,7 +27,7 @@
                                     </div>
                                     <div class="medium-8 cell">
                                         <textarea id="description" v-model="catDescription"
-                                                  @keydown="toggleDescriptionEmpty"></textarea>
+                                                  @focus="toggleDescriptionEmpty"></textarea>
                                         <div data-abide-error class="alert callout" v-show="descriptionEmpty">
                                             <span>The description cannot be empty!</span>
                                         </div>
@@ -49,8 +50,13 @@
 
 <script>
     import {mapState, mapActions} from 'vuex'
+    import alert from '../Alert.vue'
 
     export default {
+        components: {
+            alert
+        },
+
         name: 'CreateCategory',
 
         data() {
@@ -59,7 +65,8 @@
                 catDescription: '',
                 nameEmpty: false,
                 descriptionEmpty: false,
-                itemExists: false
+                itemExists: false,
+                success: false
             }
         },
 
@@ -110,6 +117,7 @@
             },
 
             add() {
+                this.success = false;
                 let exists = this.exists();
                 let anyEmpty = this.anyFieldsEmpty();
                 if (!exists && !anyEmpty) {
@@ -118,6 +126,7 @@
                     });
                     this.catName = '';
                     this.catDescription = '';
+                    this.success = true;
                 }
             }
         }
