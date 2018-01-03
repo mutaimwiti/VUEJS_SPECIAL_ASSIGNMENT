@@ -5,12 +5,14 @@
                 <table>
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Description</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="category in categories">
+                        <td>{{ categories.indexOf(category) + 1 }}</td>
                         <td>{{ category.name }}</td>
                         <td>{{ category.description }}</td>
                     </tr>

@@ -903,3 +903,8 @@ li.is-dropdown-submenu-parent > a::after{
 .btn-space {
         margin-right: 4px !important;
 }
+
+table thead, table tfoot {
+        background: #3b386b;
+        color: #fefefe;
+}

@@ -5,6 +5,7 @@
                 <table class="table hover">
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Stock</th>
@@ -13,6 +14,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="item in items">
+                        <td>{{ items.indexOf(item) + 1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.category }}</td>
                         <td>{{ item.stock }}</td>
