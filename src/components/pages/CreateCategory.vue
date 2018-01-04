@@ -14,10 +14,10 @@
                                     <div class="medium-8 cell">
                                         <input id="name" type="text" v-model="catName" @focus="toggleNameWarnings"
                                                autofocus>
-                                        <div data-abide-error class="alert callout" v-show="nameEmpty">
+                                        <div data-abide-error class="alert callout" v-show="errors.nameEmpty">
                                             <span>The name cannot be empty!</span>
                                         </div>
-                                        <div data-abide-error class="alert callout" v-show="itemExists">
+                                        <div data-abide-error class="alert callout" v-show="errors.itemExists">
                                             <span>The category already exists!</span>
                                         </div>
                                     </div>
@@ -28,13 +28,15 @@
                                     <div class="medium-8 cell">
                                         <textarea id="description" v-model="catDescription"
                                                   @focus="toggleDescriptionEmpty"></textarea>
-                                        <div data-abide-error class="alert callout" v-show="descriptionEmpty">
+                                        <div data-abide-error class="alert callout" v-show="errors.descriptionEmpty">
                                             <span>The description cannot be empty!</span>
                                         </div>
                                     </div>
 
                                     <div class="medium-12 cell">
                                         <div class="float-right">
+                                            <router-link :to="{ name: 'Categories' }" class="button">All</router-link>
+                                            <input type="button" @click="clear" value="Clear" class="button warning">
                                             <input type="button" @click="add" value="Add category" class="button">
                                         </div>
                                     </div>
@@ -50,11 +52,11 @@
 
 <script>
     import {mapState, mapActions} from 'vuex'
-    import alert from '../Alert.vue'
+    import Alert from '../Alert.vue'
 
     export default {
         components: {
-            alert
+            Alert
         },
 
         name: 'CreateCategory',
@@ -63,9 +65,11 @@
             return {
                 catName: '',
                 catDescription: '',
-                nameEmpty: false,
-                descriptionEmpty: false,
-                itemExists: false,
+                errors: {
+                    nameEmpty: false,
+                    descriptionEmpty: false,
+                    itemExists: false,
+                },
                 success: false
             }
         },
@@ -80,7 +84,7 @@
                     return category.name === this.catName;
                 }).length;
                 if (exists > 0) {
-                    this.itemExists = true;
+                    this.errors.itemExists = true;
                     return true;
                 }
                 else {
@@ -91,29 +95,23 @@
             anyFieldsEmpty() {
                 let anyEmpty = false;
                 if (this.catName.length < 1) {
-                    this.nameEmpty = true;
+                    this.errors.nameEmpty = true;
                     anyEmpty = true;
                 }
                 if (this.catDescription.length < 1) {
-                    this.descriptionEmpty = true;
+                    this.errors.descriptionEmpty = true;
                     anyEmpty = true;
                 }
                 return anyEmpty;
             },
 
             toggleNameWarnings() {
-                if (this.nameEmpty) {
-                    this.nameEmpty = false;
-                }
-                if (this.itemExists) {
-                    this.itemExists = false;
-                }
+                this.errors.nameEmpty = false;
+                this.errors.itemExists = false;
             },
 
             toggleDescriptionEmpty() {
-                if (this.descriptionEmpty) {
-                    this.descriptionEmpty = false;
-                }
+                this.errors.descriptionEmpty = false;
             },
 
             add() {
@@ -128,6 +126,13 @@
                     this.catDescription = '';
                     this.success = true;
                 }
+            },
+
+            clear() {
+                this.catName = '';
+                this.catDescription = '';
+                this.toggleNameWarnings();
+                this.toggleDescriptionEmpty();
             }
         }
     }
