@@ -7,6 +7,7 @@ import Items from '../components/pages/items/Index.vue'
 import CreateCategory from '../components/pages/categories/Create.vue'
 import CreateItem from '../components/pages/items/Create.vue'
 import EditCategory from '../components/pages/categories/Edit.vue'
+import EditItem from '../components/pages/items/Edit.vue'
 
 Vue.use(Router);
 
@@ -38,9 +39,14 @@ export default new Router({
             component: CreateItem
         },
         {
-            path: '/items/:category/edit',
+            path: '/categories/:category/edit',
             name: 'EditCategory',
             component: EditCategory
+        },
+        {
+            path: '/items/:item/edit',
+            name: 'EditItem',
+            component: EditItem
         },
     ]
 })

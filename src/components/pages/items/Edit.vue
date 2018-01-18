@@ -3,7 +3,7 @@
         <div class="grid-x">
             <div class="medium-offset-3 medium-6">
                 <div class="callout main-callout">
-                    <alert message="Item created" v-on:close="success = false" v-show="success"></alert>
+                    <alert message="Item updated" v-on:close="success = false" v-show="success"></alert>
                     <form>
                         <div class="grid-container">
                             <div class="grid-x grid-padding-x">
@@ -52,7 +52,7 @@
                                         <div class="float-right">
                                             <router-link :to="{ name: 'Items' }" class="button">All</router-link>
                                             <input type="button" @click="clear" value="Clear" class="button warning">
-                                            <input type="button" @click="add" value="Add item" class="button">
+                                            <input type="button" @click="save" value="Save" class="button">
                                         </div>
                                     </div>
                                 </div>
@@ -67,13 +67,12 @@
 
 <script>
     import mixin from '../../../mixins/itemForm'
-    import { mapActions } from 'vuex'
-    import Alert from '../../Alert.vue'
+    import {mapActions} from 'vuex'
 
     export default {
         mixins: [mixin],
 
-        name: 'CreateItem',
+        name: 'EditItem',
 
         data() {
             return {
@@ -90,15 +89,29 @@
             }
         },
 
+        mounted() {
+            this.initItem();
+        },
+
         methods: {
-            ...mapActions(['createItem']),
+            ...mapActions(['editItem']),
+
+            initItem() {
+                this.oldItem = this.items.filter((item) => {
+                    return item.name === this.$route.params.item;
+                })[0];
+
+                this.itemName = this.oldItem.name;
+                this.itemCategory = this.oldItem.category;
+                this.itemUnits = this.oldItem.units;
+            },
 
             exists() {
                 let exists = this.items.filter((item) => {
                     return item.category === this.itemCategory && item.name === this.itemName;
                 }).length;
 
-                if (exists > 0) {
+                if (exists > 0 && !(this.itemName === this.oldItem.name ) && (this.itemCategory === this.oldItem.category)) {
                     this.errors.itemExists = true;
                     return true;
                 }
@@ -107,18 +120,19 @@
                 }
             },
 
-            add() {
+            save() {
                 this.success = false;
                 let exists = this.exists();
                 let anyEmpty = this.anyFieldsEmpty();
 
                 if (!exists && !anyEmpty) {
-                    this.createItem({
-                        name: this.itemName, category: this.itemCategory, units: this.itemUnits
+                    this.editItem({
+                        old: this.oldItem,
+                        name: this.itemName,
+                        category: this.itemCategory,
+                        units: this.itemUnits
                     });
 
-                    this.itemName = '';
-                    this.itemUnits = '';
                     this.success = true;
                 }
             },

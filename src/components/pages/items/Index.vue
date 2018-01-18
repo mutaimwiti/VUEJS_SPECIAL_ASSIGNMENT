@@ -23,6 +23,9 @@
                         <td>{{ item.stock }}</td>
                         <td>{{ item.units }}</td>
                         <td>
+                            <router-link :to="{ name: 'EditItem', params: { item: item.name } }"
+                                         class="button tiny action-btn">Edit
+                            </router-link>
                             <button type="button" class="button tiny action-btn" @click="remove(item)">Remove
                             </button>
                         </td>

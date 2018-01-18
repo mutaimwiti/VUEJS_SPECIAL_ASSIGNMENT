@@ -32,10 +32,18 @@ export const REMOVE_ITEM = (state, item) => {
     state.items.splice(state.items.indexOf(item), 1);
 };
 
+export const EDIT_ITEM = (state, { old, name, category, units }) => {
+    let index = state.items.indexOf(old);
+    state.items[index].name = name;
+    state.items[index].category = category;
+    state.items[index].units = units;
+};
+
 export const mutations = {
     CREATE_CATEGORY,
     CREATE_ITEM,
     REMOVE_CATEGORY,
     EDIT_CATEGORY,
-    REMOVE_ITEM
+    REMOVE_ITEM,
+    EDIT_ITEM
 };
