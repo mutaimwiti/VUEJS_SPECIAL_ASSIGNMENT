@@ -18,7 +18,12 @@ export const CREATE_ITEM = (state, { name, category, units }) => {
     )
 };
 
+export const REMOVE_CATEGORY = (state, category) => {
+    state.categories.splice(state.categories.indexOf(category), 1);
+};
+
 export const mutations = {
     CREATE_CATEGORY,
-    CREATE_ITEM
+    CREATE_ITEM,
+    REMOVE_CATEGORY
 };

@@ -1,5 +1,5 @@
 <template>
-    <div class="success callout">
+    <div :class="classes">
         <div class="grid-x grid-padding-x">
             <div class="small-11 cell">
                 {{ message }}
@@ -13,6 +13,12 @@
 
 <script>
     export default {
-        props: ['message']
+        props: ['message', 'color'],
+
+        computed: {
+            classes() {
+                return this.color ? ['callout',  this.color ] : ['callout', 'success'];
+            }
+        }
     }
 </script>
