@@ -51,7 +51,7 @@
                                     <div class="medium-12 cell">
                                         <div class="float-right">
                                             <router-link :to="{ name: 'Items' }" class="button">All</router-link>
-                                            <input type="button" @click="clear" value="Clear" class="button warning">
+                                            <input type="button" @click="clear" value="Cancel" class="button warning">
                                             <input type="button" @click="save" value="Save" class="button">
                                         </div>
                                     </div>
@@ -101,6 +101,10 @@
                     return item.name === this.$route.params.item;
                 })[0];
 
+                this.resetFields();
+            },
+
+            resetFields() {
                 this.itemName = this.oldItem.name;
                 this.itemCategory = this.oldItem.category;
                 this.itemUnits = this.oldItem.units;
@@ -138,9 +142,8 @@
             },
 
             clear() {
-                this.itemName = '';
-                this.itemCategory = null;
-                this.itemUnits = '';
+                this.resetFields();
+
                 this.toggleNameWarnings();
                 this.toggleCategoryNull();
                 this.toggleUnitsEmpty();
