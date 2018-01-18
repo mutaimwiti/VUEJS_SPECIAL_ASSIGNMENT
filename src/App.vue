@@ -18,6 +18,7 @@
                         <a>Items</a>
                         <ul class="menu">
                             <li><router-link :to="{ name: 'Items' }">All</router-link></li>
+                            <li><router-link :to="{ name: 'CreateItem' }">Add</router-link></li>
                         </ul>
                     </li>
                 </ul>

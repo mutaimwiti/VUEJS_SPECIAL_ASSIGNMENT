@@ -7,6 +7,18 @@ export const CREATE_CATEGORY = (state, { name, description }) => {
     )
 };
 
+export const CREATE_ITEM = (state, { name, category, units }) => {
+    state.items.push(
+        {
+            name: name,
+            category: category,
+            stock: 0,
+            units: units
+        }
+    )
+};
+
 export const mutations = {
-    CREATE_CATEGORY
+    CREATE_CATEGORY,
+    CREATE_ITEM
 };
