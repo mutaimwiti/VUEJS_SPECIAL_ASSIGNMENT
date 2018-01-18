@@ -2,6 +2,7 @@
     <div class="grid-x">
         <div class="medium-offset-2 medium-8">
             <div class="callout main-callout">
+                <quick-links :components="[{'name': 'CreateItem', 'caption': 'Add Item'}]"></quick-links>
                 <table class="table hover">
                     <thead>
                     <tr>
@@ -29,10 +30,12 @@
 
 <script>
     import { mapState } from 'vuex'
-
+    import QuickLinks from '../../QuickLinks.vue';
 
     export default {
         name: 'Items',
+
+        components: { QuickLinks },
 
         computed: {
             ...mapState(['items']),
