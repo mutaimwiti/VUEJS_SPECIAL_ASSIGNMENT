@@ -26,7 +26,7 @@
 
 <script>
     import { mapState } from 'vuex'
-    import QuickLinks from '../QuickLinks.vue';
+    import QuickLinks from '../../QuickLinks.vue';
 
 
     export default {

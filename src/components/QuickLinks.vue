@@ -6,7 +6,6 @@
                     {{ component.caption }}
                 </router-link>
             </div>
-
         </div>
     </div>
 </template>

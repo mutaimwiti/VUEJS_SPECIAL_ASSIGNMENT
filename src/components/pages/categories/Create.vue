@@ -52,7 +52,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex'
-    import Alert from '../Alert.vue'
+    import Alert from '../../Alert.vue'
 
     export default {
         components: {
