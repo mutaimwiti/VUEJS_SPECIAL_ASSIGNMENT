@@ -3,6 +3,7 @@
         <div class="medium-offset-2 medium-8">
             <div class="callout main-callout">
                 <quick-links :components="[{'name': 'CreateItem', 'caption': 'Add Item'}]"></quick-links>
+
                 <table class="table hover">
                     <thead>
                     <tr>
@@ -11,6 +12,7 @@
                         <th>Category</th>
                         <th>Stock</th>
                         <th>Units</th>
+                        <th colspan="2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -20,6 +22,10 @@
                         <td>{{ item.category }}</td>
                         <td>{{ item.stock }}</td>
                         <td>{{ item.units }}</td>
+                        <td>
+                            <button type="button" class="button tiny action-btn" @click="remove(item)">Remove
+                            </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -29,7 +35,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import {mapState, mapActions} from 'vuex'
     import QuickLinks from '../../QuickLinks.vue';
 
     export default {
@@ -45,6 +51,14 @@
             return {
 
             }
+        },
+
+        methods: {
+            ...mapActions(['removeItem']),
+
+            remove(item) {
+                this.removeItem(item);
+            },
         }
     }
 </script>

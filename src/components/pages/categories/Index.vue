@@ -38,7 +38,7 @@
 
 <script>
     import {mapState, mapActions} from 'vuex'
-    import QuickLinks from '../../QuickLinks.vue';
+    import QuickLinks from '../../QuickLinks.vue'
     import Alert from '../../Alert.vue'
 
     export default {
