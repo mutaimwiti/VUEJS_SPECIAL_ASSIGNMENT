@@ -3,7 +3,7 @@
         <div class="grid-x">
             <div class="medium-offset-3 medium-6">
                 <div class="callout main-callout">
-                    <alert message="Category created" v-on:close="success = false" v-show="success"></alert>
+                    <alert message="Category updated" v-on:close="success = false" v-show="success"></alert>
                     <form>
                         <div class="grid-container">
                             <div class="grid-x grid-padding-x">
@@ -36,8 +36,8 @@
                                     <div class="medium-12 cell">
                                         <div class="float-right">
                                             <router-link :to="{ name: 'Categories' }" class="button">All</router-link>
-                                            <input type="button" @click="clear" value="Clear" class="button warning">
-                                            <input type="button" @click="add" value="Add category" class="button">
+                                            <input type="button" @click="cancel" value="Cancel" class="button warning">
+                                            <input type="button" @click="save" value="Save" class="button">
                                         </div>
                                     </div>
                                 </div>
@@ -57,10 +57,11 @@
     export default{
         mixins: [mixin],
 
-        name: 'CreateCategory',
+        name: 'EditCategory',
 
         data() {
             return {
+                oldCategory: null,
                 catName: '',
                 catDescription: '',
                 errors: {
@@ -72,14 +73,30 @@
             }
         },
 
+        mounted() {
+            this.initCategory();
+        },
+
         methods: {
-            ...mapActions(['createCategory']),
+            ...mapActions(['editCategory']),
+
+            initCategory() {
+                this.oldCategory = this.categories.filter((category) => {
+                    return category.name === this.$route.params.category;
+                })[0];
+
+                this.catName = this.oldCategory.name;
+                this.catDescription = this.oldCategory.description;
+            },
 
             exists() {
                 let exists = this.categories.filter((category) => {
                     return category.name === this.catName;
                 }).length;
-                if (exists > 0) {
+
+                //only evaluates to true if the category exists and the
+                // category name is not equal to the category being edited
+                if (exists > 0 && !(this.catName === this.oldCategory.name)) {
                     this.errors.itemExists = true;
                     return true;
                 }
@@ -88,21 +105,19 @@
                 }
             },
 
-            add() {
+            save() {
                 this.success = false;
                 let exists = this.exists();
                 let anyEmpty = this.anyFieldsEmpty();
                 if (!exists && !anyEmpty) {
-                    this.createCategory({ name: this.catName, description: this.catDescription });
-                    this.catName = '';
-                    this.catDescription = '';
+                    this.editCategory({ old: this.oldCategory, name: this.catName, description: this.catDescription });
                     this.success = true;
                 }
             },
 
-            clear() {
-                this.catName = '';
-                this.catDescription = '';
+            cancel() {
+                this.catName = this.oldCategory.name;
+                this.catDescription = this.oldCategory.description;
                 this.toggleNameWarnings();
                 this.toggleDescriptionEmpty();
             }

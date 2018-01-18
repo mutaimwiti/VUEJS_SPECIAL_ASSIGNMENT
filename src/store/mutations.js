@@ -22,8 +22,15 @@ export const REMOVE_CATEGORY = (state, category) => {
     state.categories.splice(state.categories.indexOf(category), 1);
 };
 
+export const EDIT_CATEGORY = (state, { old, name, description }) => {
+    let index = state.categories.indexOf(old);
+    state.categories[index].name = name;
+    state.categories[index].description = description;
+};
+
 export const mutations = {
     CREATE_CATEGORY,
     CREATE_ITEM,
-    REMOVE_CATEGORY
+    REMOVE_CATEGORY,
+    EDIT_CATEGORY
 };

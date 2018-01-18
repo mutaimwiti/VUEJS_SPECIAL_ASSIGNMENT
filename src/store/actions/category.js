@@ -5,5 +5,9 @@ export const categoryActions = {
 
     removeCategory(store, category) {
         store.commit('REMOVE_CATEGORY', category);
+    },
+
+    editCategory(store, category) {
+        store.commit('EDIT_CATEGORY', category);
     }
 };

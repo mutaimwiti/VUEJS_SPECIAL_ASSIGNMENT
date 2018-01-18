@@ -22,6 +22,9 @@
                         <td>{{ category.name }}</td>
                         <td>{{ category.description }}</td>
                         <td>
+                            <router-link :to="{ name: 'EditCategory', params: { category: category.name } }"
+                                         class="button tiny action-btn">Edit
+                            </router-link>
                             <button type="button" class="button tiny action-btn" @click="removeCat(category)">Remove
                             </button>
                         </td>
