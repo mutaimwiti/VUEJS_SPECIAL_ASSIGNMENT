@@ -2,6 +2,8 @@
     <div class="grid-x">
         <div class="medium-offset-2 medium-8">
             <div class="callout main-callout">
+                <alert message="Checkout successful" color="success"  not-dismissible="true"
+                       v-show="success"></alert>
                 <quick-links :components="[{'name': 'Items', 'caption': 'Go to items'}]"></quick-links>
 
                 <table class="table hover">
@@ -28,20 +30,31 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div class="grid-x">
+                    <div class="medium-12 ">
+                        <div class="pull-right">
+                            <button type="button" class="button" v-if="cart.length" @click="checkout">Checkout</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Alert from '../Alert.vue';
     import {mapActions, mapState} from 'vuex'
     import QuickLinks from '../QuickLinks.vue';
 
     export default {
-        components: { QuickLinks },
+        components: {QuickLinks, Alert},
 
         data() {
-            return {}
+            return {
+                success: false
+            }
         },
 
         computed: {
@@ -49,7 +62,19 @@
         },
 
         methods: {
-            ...mapActions(['removeItemFromCart'])
+            ...mapActions(['removeItemFromCart', 'checkoutCart']),
+
+            checkout() {
+                this.checkoutCart();
+
+                this.success = true;
+
+                setTimeout(this.hideMessage, 1200);
+            },
+
+            hideMessage() {
+                this.success = false;
+            }
         }
     }
 </script>

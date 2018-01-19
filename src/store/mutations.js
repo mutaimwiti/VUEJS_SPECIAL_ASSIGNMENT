@@ -75,6 +75,10 @@ export const REMOVE_ITEM_FROM_CART = (state, { item }) => {
     state.items[item].stock = state.items[item].stock + Number(qty);
 };
 
+export const CHECKOUT_CART = (state) => {
+    state.cart = [];
+};
+
 export const mutations = {
     CREATE_CATEGORY,
     CREATE_ITEM,
@@ -84,5 +88,6 @@ export const mutations = {
     EDIT_ITEM,
     ADD_ITEM_TO_CART,
     CLEAR_CART,
-    REMOVE_ITEM_FROM_CART
+    REMOVE_ITEM_FROM_CART,
+    CHECKOUT_CART
 };
