@@ -85,6 +85,10 @@
                     return category.name === this.$route.params.category;
                 })[0];
 
+                this.resetFields();
+            },
+
+            resetFields() {
                 this.catName = this.oldCategory.name;
                 this.catDescription = this.oldCategory.description;
             },
@@ -109,15 +113,21 @@
                 this.success = false;
                 let exists = this.exists();
                 let anyEmpty = this.anyFieldsEmpty();
+
                 if (!exists && !anyEmpty) {
-                    this.editCategory({ old: this.oldCategory, name: this.catName, description: this.catDescription });
+                    this.editCategory({
+                        old: this.oldCategory,
+                        name: this.catName,
+                        description: this.catDescription
+                    });
+
                     this.success = true;
                 }
             },
 
             cancel() {
-                this.catName = this.oldCategory.name;
-                this.catDescription = this.oldCategory.description;
+                this.resetFields();
+
                 this.toggleNameWarnings();
                 this.toggleDescriptionEmpty();
             }
