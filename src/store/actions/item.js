@@ -17,5 +17,9 @@ export const itemActions = {
 
     clearCart(store) {
         store.commit('CLEAR_CART');
+    },
+
+    removeItemFromCart(store, item) {
+        store.commit('REMOVE_ITEM_FROM_CART', item);
     }
 };

@@ -23,7 +23,7 @@
                     <li>
                         <a>Cart {{ cart.length ? '( ' + cart.length + ' )': '' }}</a>
                         <ul class="menu">
-                            <li><router-link :to="{ name: 'Categories' }">View</router-link></li>
+                            <li><router-link :to="{ name: 'Cart' }">View</router-link></li>
                             <li><a @click="clearCart">Clear</a></li>
                         </ul>
                     </li>

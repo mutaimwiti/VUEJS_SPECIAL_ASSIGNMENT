@@ -51,6 +51,12 @@ export const CLEAR_CART = (state) => {
     state.cart = [];
 };
 
+export const REMOVE_ITEM_FROM_CART = (state, { item }) => {
+    state.cart = state.cart.filter((itm) => {
+        return !(itm.item === item);
+    });
+};
+
 export const mutations = {
     CREATE_CATEGORY,
     CREATE_ITEM,
@@ -59,5 +65,6 @@ export const mutations = {
     REMOVE_ITEM,
     EDIT_ITEM,
     ADD_ITEM_TO_CART,
-    CLEAR_CART
+    CLEAR_CART,
+    REMOVE_ITEM_FROM_CART
 };

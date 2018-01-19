@@ -4,7 +4,7 @@
             <div class="small-11 cell">
                 {{ message }}
             </div>
-            <div class="small-1 cell">
+            <div class="small-1 cell" v-show="! notDismissible">
                 <a @click="$emit('close')" class="close">&times;</a>
             </div>
         </div>
@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: ['message', 'color'],
+        props: ['message', 'color', 'notDismissible'],
 
         computed: {
             classes() {

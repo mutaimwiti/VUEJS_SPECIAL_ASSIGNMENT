@@ -2,7 +2,11 @@
     <div class="grid-x">
         <div class="medium-offset-2 medium-8">
             <div class="callout main-callout">
-                <quick-links :components="[{'name': 'CreateItem', 'caption': 'Add Item'}]"></quick-links>
+                <quick-links
+                        :components="[
+                            {'name': 'Cart', 'caption': 'View cart', 'hidden': (cart.length < 1)},
+                            {'name': 'CreateItem', 'caption': 'Add Item'}]">
+                </quick-links>
 
                 <table class="table hover">
                     <thead>
@@ -23,7 +27,7 @@
                         <td>{{ item.stock }}</td>
                         <td>{{ item.units }}</td>
                         <td>
-                            <button type="button" class="button tiny action-btn" @click="showModal(item)">
+                            <button type="button" class="button tiny action-btn" @click="showAddToCartModal(item)">
                                 Add to cart
                             </button>
                         </td>
@@ -40,7 +44,7 @@
                     </tbody>
                 </table>
                 <div>
-                    <div id="cartModal" class="reveal small" data-reveal>
+                    <div id="cartModal" class="reveal small">
                         <h5><b>Add to cart</b></h5>
 
                         <form>
@@ -65,6 +69,9 @@
                                         <div data-abide-error class="alert callout" v-show="exceeds">
                                             <span>Quantity to add exceeds the available stock!</span>
                                         </div>
+                                        <div data-abide-error class="alert callout" v-show="zero">
+                                            <span>Quantity to add cannot be zero!</span>
+                                        </div>
                                     </div>
                                     <div class="medium-12 cell">
                                         <div class="float-right">
@@ -81,6 +88,12 @@
                             <span @click="closeModal()">&times;</span>
                         </button>
                     </div>
+
+                    <div id="inCartModal" class="reveal small alert" data-reveal>
+                        <alert message="The item already exists in the cart!" color="alert"
+                               not-dismissible="true"></alert>
+                        <p></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,43 +101,49 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import { mapState, mapActions } from 'vuex'
     import QuickLinks from '../../QuickLinks.vue';
+    import Alert from '../../Alert.vue';
 
     export default {
         name: 'Items',
 
-        components: {QuickLinks},
+        components: {QuickLinks, Alert},
 
         computed: {
-            ...mapState(['items']),
+            ...mapState(['items', 'cart']),
         },
 
         data() {
             return {
-                availableStock: 0,
                 toAdd: '',
+                zero: false,
                 empty: false,
                 exceeds: false,
-                currentItem: null
+                currentItem: null,
+                availableStock: 0
             }
         },
 
         mounted() {
             this.cartModal = new Foundation.Reveal($('#cartModal'));
+            this.inCartModal = new Foundation.Reveal($('#inCartModal'));
         },
 
         created() {
             this.cartModal = new Foundation.Reveal($('#cartModal'));
+            this.inCartModal = new Foundation.Reveal($('#inCartModal'));
         },
 
         destroyed() {
             this.cartModal.destroy();
+            this.inCartModal.destroy();
         },
 
         watch: {
             toAdd: function (newValue) {
-                newValue > this.availableStock ? (this.exceeds = true) : (this.exceeds = false);
+                this.checkZero();
+                this.checkExceeds(newValue);
             }
         },
 
@@ -141,8 +160,13 @@
                         this.empty = true
                     } else {
                         this.empty = false;
+
+                        if (this.checkZero() || this.checkExceeds(this.toAdd) ) {
+                            return;
+                        }
+
                         this.addItemToCart({
-                            item: this.currentItem,
+                            item: this.getIndexOfItem(this.currentItem),
                             qty: this.toAdd
                         });
 
@@ -151,17 +175,51 @@
                 }
             },
 
-            showModal(item) {
-                let modal = $('#cartModal');
+            cartHasItem(itemIndex) {
+                return this.cart.filter((itm) => {
+                    return itm.item === itemIndex;
+                }).length;
+            },
 
-                this.currentItem = item;
-                this.availableStock = item.stock;
+            getIndexOfItem(item) {
+                return this.items.indexOf(item)
+            },
 
-                modal.foundation('open');
+            checkExceeds(toAdd) {
+                toAdd > this.availableStock ? this.exceeds = true: this.exceeds = false;
+
+                return this.exceeds;
+            },
+
+            checkZero() {
+                this.zero = (this.toAdd === '0');
+
+                return this.zero;
+            },
+
+            showAddToCartModal(item) {
+                if (this.cartHasItem(this.getIndexOfItem(item))) {
+                    this.showItemExistsModal();
+                } else {
+                    this.cartModal.open();
+                    this.currentItem = item;
+                    this.availableStock = item.stock;
+                    this.toAdd = '';
+                }
+            },
+
+            showItemExistsModal() {
+                this.inCartModal.open();
+
+                let modal = this.inCartModal;
+
+                setTimeout(function () {
+                    modal.close();
+                }, 2000, modal);
             },
 
             closeModal() {
-                $('#cartModal').foundation('close');
+                this.cartModal.close();
             }
         }
     }
