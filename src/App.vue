@@ -49,6 +49,8 @@
         name: 'app',
 
         mounted() {
+            this.$router.push({ name: 'Items'});
+
             this.dropdownMenu = new Foundation.DropdownMenu($('#dropdown-menu'), {
                 // These options can be declarative using the data attributes
                 hoverDelay: 300,
