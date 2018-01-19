@@ -40,11 +40,24 @@ export const EDIT_ITEM = (state, { old, name, category, stock, units }) => {
     state.items[index].units = units;
 };
 
+export const ADD_ITEM_TO_CART = (state, { item, qty }) => {
+    state.cart.push({
+        item: item,
+        qty: qty
+    });
+};
+
+export const CLEAR_CART = (state) => {
+    state.cart = [];
+};
+
 export const mutations = {
     CREATE_CATEGORY,
     CREATE_ITEM,
     REMOVE_CATEGORY,
     EDIT_CATEGORY,
     REMOVE_ITEM,
-    EDIT_ITEM
+    EDIT_ITEM,
+    ADD_ITEM_TO_CART,
+    CLEAR_CART
 };

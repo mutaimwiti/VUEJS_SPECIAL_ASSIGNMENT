@@ -20,6 +20,13 @@
                             <li><router-link :to="{ name: 'CreateCategory' }">Add</router-link></li>
                         </ul>
                     </li>
+                    <li>
+                        <a>Cart {{ cart.length ? '( ' + cart.length + ' )': '' }}</a>
+                        <ul class="menu">
+                            <li><router-link :to="{ name: 'Categories' }">View</router-link></li>
+                            <li><a @click="clearCart">Clear</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="top-bar-right">
@@ -36,6 +43,8 @@
 </template>
 
 <script>
+    import { mapActions, mapState } from 'vuex'
+
     export default {
         name: 'app',
 
@@ -48,7 +57,14 @@
 
         destroyed() {
             this.dropdownMenu.destroy();
-        }
+        },
 
+        computed: {
+            ...mapState(['cart']),
+        },
+
+        methods: {
+            ...mapActions(['clearCart'])
+        }
     }
 </script>

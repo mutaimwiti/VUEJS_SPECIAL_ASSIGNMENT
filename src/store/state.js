@@ -15,5 +15,10 @@ export const state = {
         {name: 'Roofing nails', category: 'Nails', stock: 40, units: 'kgs'},
         {name: 'Hammer', category: 'Masonry tools', stock: 3, units: 'pcs'},
         {name: 'Chisel', category: 'Masonry tools', stock: 1,units: 'pcs'}
+    ],
+
+    cart: [
+        {item: 'Simba cement', qty: 5},
+        {item: 'Roofing nails', qty: 17}
     ]
 };

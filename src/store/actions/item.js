@@ -9,5 +9,13 @@ export const itemActions = {
 
     editItem(store, item) {
         store.commit('EDIT_ITEM', item);
+    },
+
+    addItemToCart(store, item) {
+        store.commit('ADD_ITEM_TO_CART', item);
+    },
+
+    clearCart(store) {
+        store.commit('CLEAR_CART');
     }
 };
