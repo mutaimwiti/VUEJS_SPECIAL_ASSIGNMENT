@@ -24,6 +24,11 @@ export default {
                 anyEmpty = true;
             }
 
+            if (this.itemStock === '') {
+                this.errors.stockEmpty = true;
+                anyEmpty = true;
+            }
+
             if (this.itemUnits.length < 1) {
                 this.errors.unitsEmpty = true;
                 anyEmpty = true;
@@ -39,6 +44,10 @@ export default {
 
         toggleCategoryNull() {
             this.errors.categoryNull = false;
+        },
+
+        toggleStockEmpty() {
+            this.errors.stockEmpty = false;
         },
 
         toggleUnitsEmpty() {

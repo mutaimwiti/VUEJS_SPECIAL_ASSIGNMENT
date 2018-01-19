@@ -7,12 +7,12 @@ export const CREATE_CATEGORY = (state, { name, description }) => {
     )
 };
 
-export const CREATE_ITEM = (state, { name, category, units }) => {
+export const CREATE_ITEM = (state, { name, category, stock, units }) => {
     state.items.push(
         {
             name: name,
             category: category,
-            stock: 0,
+            stock: stock,
             units: units
         }
     )
@@ -32,10 +32,11 @@ export const REMOVE_ITEM = (state, item) => {
     state.items.splice(state.items.indexOf(item), 1);
 };
 
-export const EDIT_ITEM = (state, { old, name, category, units }) => {
+export const EDIT_ITEM = (state, { old, name, category, stock, units }) => {
     let index = state.items.indexOf(old);
     state.items[index].name = name;
     state.items[index].category = category;
+    state.items[index].stock = stock;
     state.items[index].units = units;
 };
 

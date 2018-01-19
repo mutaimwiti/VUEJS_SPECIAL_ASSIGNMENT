@@ -38,6 +38,18 @@
                                     </div>
 
                                     <div class="medium-4 cell">
+                                        <label for="stock" class="text-right middle">Stock</label>
+                                    </div>
+                                    <div class="medium-8 cell">
+                                        <input id="stock" type="number" min="0" step="any" v-model="itemStock"
+                                               @focus="toggleStockEmpty()"
+                                               autofocus>
+                                        <div data-abide-error class="alert callout" v-show="errors.stockEmpty">
+                                            <span>The stock cannot be empty!</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="medium-4 cell">
                                         <label for="description" class="text-right middle">Units</label>
                                     </div>
                                     <div class="medium-8 cell">
@@ -78,10 +90,12 @@
             return {
                 itemName: '',
                 itemCategory: null,
+                itemStock: 0,
                 itemUnits: '',
                 errors: {
                     nameEmpty: false,
                     categoryNull: false,
+                    stockEmpty: false,
                     unitsEmpty: false,
                     itemExists: false,
                 },
@@ -107,6 +121,7 @@
             resetFields() {
                 this.itemName = this.oldItem.name;
                 this.itemCategory = this.oldItem.category;
+                this.itemStock = this.oldItem.stock;
                 this.itemUnits = this.oldItem.units;
             },
 
@@ -134,6 +149,7 @@
                         old: this.oldItem,
                         name: this.itemName,
                         category: this.itemCategory,
+                        stock: this.itemStock,
                         units: this.itemUnits
                     });
 
@@ -146,6 +162,7 @@
 
                 this.toggleNameWarnings();
                 this.toggleCategoryNull();
+                this.toggleStockEmpty();
                 this.toggleUnitsEmpty();
             }
         }

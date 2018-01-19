@@ -38,6 +38,18 @@
                                     </div>
 
                                     <div class="medium-4 cell">
+                                        <label for="stock" class="text-right middle">Stock</label>
+                                    </div>
+                                    <div class="medium-8 cell">
+                                        <input id="stock" type="number" min="0" step="any" v-model="itemStock"
+                                               @focus="toggleStockEmpty()"
+                                               autofocus>
+                                        <div data-abide-error class="alert callout" v-show="errors.stockEmpty">
+                                            <span>The stock cannot be empty!</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="medium-4 cell">
                                         <label for="description" class="text-right middle">Units</label>
                                     </div>
                                     <div class="medium-8 cell">
@@ -67,7 +79,7 @@
 
 <script>
     import mixin from '../../../mixins/itemForm'
-    import { mapActions } from 'vuex'
+    import {mapActions} from 'vuex'
     import Alert from '../../Alert.vue'
 
     export default {
@@ -79,10 +91,12 @@
             return {
                 itemName: '',
                 itemCategory: null,
+                itemStock: '',
                 itemUnits: '',
                 errors: {
                     nameEmpty: false,
                     categoryNull: false,
+                    stockEmpty: false,
                     unitsEmpty: false,
                     itemExists: false,
                 },
@@ -114,11 +128,17 @@
 
                 if (!exists && !anyEmpty) {
                     this.createItem({
-                        name: this.itemName, category: this.itemCategory, units: this.itemUnits
+                        name: this.itemName,
+                        category: this.itemCategory,
+                        stock: this.itemStock,
+                        units: this.itemUnits
                     });
 
                     this.itemName = '';
+                    this.itemCategory = null;
+                    this.itemStock = '';
                     this.itemUnits = '';
+
                     this.success = true;
                 }
             },
@@ -126,9 +146,12 @@
             clear() {
                 this.itemName = '';
                 this.itemCategory = null;
+                this.itemStock = '';
                 this.itemUnits = '';
+
                 this.toggleNameWarnings();
                 this.toggleCategoryNull();
+                this.toggleStockEmpty();
                 this.toggleUnitsEmpty();
             }
         }
