@@ -18,7 +18,7 @@ export const state = {
     ],
 
     cart: [
-        {item: 1, qty: 5},
-        {item: 4, qty: 17}
+        // {item: 1, qty: 5},
+        // {item: 4, qty: 17}
     ]
 };

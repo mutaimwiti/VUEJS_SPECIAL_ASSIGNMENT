@@ -45,16 +45,34 @@ export const ADD_ITEM_TO_CART = (state, { item, qty }) => {
         item: item,
         qty: qty
     });
+
+    //update the stock
+    state.items[item].stock = state.items[item].stock - qty;
 };
 
 export const CLEAR_CART = (state) => {
+    for (let x = 0; x < state.cart.length; x++) {
+        //update quantity for all items
+        state.items[state.cart[x].item].stock = state.items[state.cart[x].item].stock + Number(state.cart[x].qty);
+    }
+
+    //remove all items from cart
     state.cart = [];
 };
 
 export const REMOVE_ITEM_FROM_CART = (state, { item }) => {
+    //get qty for our item on cart
+    let qty = state.cart.filter((itm) => {
+        return itm.item === item;
+    })[0].qty;
+
+    //discard whatever item matches our item
     state.cart = state.cart.filter((itm) => {
         return !(itm.item === item);
     });
+
+    //update the stock
+    state.items[item].stock = state.items[item].stock + Number(qty);
 };
 
 export const mutations = {
