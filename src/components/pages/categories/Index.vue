@@ -13,7 +13,7 @@
                         <th></th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        <th colspan="2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,6 +25,8 @@
                             <router-link :to="{ name: 'EditCategory', params: { category: category.name } }"
                                          class="button tiny action-btn">Edit
                             </router-link>
+                        </td>
+                        <td>
                             <button type="button" class="button tiny action-btn" @click="removeCat(category)">Remove
                             </button>
                         </td>
