@@ -4,21 +4,20 @@
             <div class="top-bar-left">
                 <ul id="dropdown-menu" class="dropdown menu" data-dropdown-menu>
                     <li class="menu-text" id="app-name">
-                        <router-link :to="{ name: 'Home' }">Store manager</router-link>
-                    </li>
-                    <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
-                    <li>
-                        <a>Categories</a>
-                        <ul class="menu">
-                            <li><router-link :to="{ name: 'Categories' }">All</router-link></li>
-                            <li><router-link :to="{ name: 'CreateCategory' }">Add</router-link></li>
-                        </ul>
+                        <a>Store manager</a>
                     </li>
                     <li>
                         <a>Items</a>
                         <ul class="menu">
                             <li><router-link :to="{ name: 'Items' }">All</router-link></li>
                             <li><router-link :to="{ name: 'CreateItem' }">Add</router-link></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>Categories</a>
+                        <ul class="menu">
+                            <li><router-link :to="{ name: 'Categories' }">All</router-link></li>
+                            <li><router-link :to="{ name: 'CreateCategory' }">Add</router-link></li>
                         </ul>
                     </li>
                 </ul>
